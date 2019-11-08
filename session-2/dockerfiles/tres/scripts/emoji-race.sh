@@ -60,16 +60,16 @@ EOF
 beep-beep() { 
 trap 'tput smam;tput cnorm;trap - INT TERM EXIT;return' INT TERM EXIT
 local MSG="${@}"
-declare -ag TARR=($(grep -oE '.| ' <<< "${MSG// /$(printf '\u200A')}"))
+declare -ag TARR=($(grep -oE '.| ' <<< "${MSG// /_}"))
 declare -ag VARR=(🏎️ 🚌 🚐 🚑 🚒 🚓 🚕 🚗 🚙 🚚 🚛 🚜 🚎 🏎️ 🚌 🚐 🚑 🚒 🚓 🚕 🚗 🚙 🚚 🚛 🚜 🚎)
 tput rmam;tput civis
 LINE=
 STOP=1
 for t in ${!TARR[@]};do 
 	for i in $(seq $((${#TARR[@]}+30)) -1 $STOP);do
-		printf "\e[$((${i}-1))G${TARR[t]} ${VARR[t]}\e[K\r${LINE}"; sleep .03;
+		printf "\e[$((${i}-1))G${TARR[t]//_/ } ${VARR[t]}\e[K\r${LINE}"; sleep .03;
 	done
-	LINE="${LINE}${TARR[t]}"
+	LINE="${LINE}${TARR[t]//_/ }"
 	STOP=$((${#LINE}+2))
 	tput el
 done

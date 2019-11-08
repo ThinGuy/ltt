@@ -1,0 +1,6 @@
+FROM dos:latest
+
+COPY scripts/emoji-race.sh /usr/local/bin/emoji-race.sh
+
+ENTRYPOINT bash -c "source /usr/local/bin/emoji-race.sh && beep-beep \"${GREETING:-Hello} ${NAME:-World}\""
+
